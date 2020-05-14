@@ -1,8 +1,8 @@
 import pandas as pd
 
 url = 'https://docs.google.com/spreadsheets/d/16-bnsDdmmgtSxdWbVMboIHo5FRuz76DBxsz_BbsEVWA/export?format=csv&id=16-bnsDdmmgtSxdWbVMboIHo5FRuz76DBxsz_BbsEVWA&gid=1627928258'
-columnas_origen = [fecha','edad_hombre','edad_mujer']
-columnas_destino = ['Fecha','Edad hombre','Edad mujer']
+columnas_origen = ['fecha','edad_hombre','edad_mujer']
+columnas_destino = ['Fecha','Edad varones','Edad mujeres']
 archivo_destino = 'serie-fallecidos.csv'
 
 # leer datos
