@@ -8,7 +8,7 @@ carpeta_origen = './ejemplo/'
 archivo_origen = 'c19s.results.summary.tsv'
 carpeta_destino = carpeta_origen
 archivo_destino = 'resultados.csv'
-imagen_destino = 'resultados.png'
+imagen_destino = 'resultados-intervalos.png'
 
 columnas_origen = [
     'time',
@@ -35,12 +35,25 @@ else:
     datos = pd.read_csv(ruta)
 
 # seleccionar y renombrar columnas
-datos = datos[columnas_origen]
-datos.columns = columnas_destino
+# crear dataframe con los datos 'median'
+mediana = datos[columnas_origen]
+mediana.columns = columnas_destino
+# crear dataframe con los datos 'lower bound'
+columnas_limite_inferior = [c.replace('median', 'lower bound') for c in columnas_origen]
+limite_inferior = datos[columnas_limite_inferior]
+limite_inferior.columns = columnas_destino
+# crear dataframe con los datos 'upper bound'
+columnas_limite_superior = [c.replace('median', 'upper bound') for c in columnas_origen]
+limite_superior = datos[columnas_limite_superior]
+limite_superior.columns = columnas_destino
 
 # procesar datos
-datos['Total'] = datos.sum(axis=1)
-datos['Críticos'] = datos['Críticos'] + datos['Críticos exceso']
+mediana['Total'] = mediana.sum(axis=1)
+mediana['Críticos'] = mediana['Críticos'] + mediana['Críticos exceso']
+limite_inferior['Total'] = limite_inferior.sum(axis=1)
+limite_inferior['Críticos'] = limite_inferior['Críticos'] + limite_inferior['Críticos exceso']
+limite_superior['Total'] = limite_superior.sum(axis=1)
+limite_superior['Críticos'] = limite_superior['Críticos'] + limite_superior['Críticos exceso']
 
 # datos para el gráfico
 columnas_grafico = [
@@ -70,9 +83,10 @@ ax = fig.add_subplot(111)
 
 # graficar datos
 for columna, color_linea in zip(columnas_grafico, colores_grafico):
-    x = datos['Fecha']
+    x = mediana['Fecha']
     x = [dt.datetime.strptime(d,'%Y-%m-%d').date() for d in x]  # transformar fecha en formato texto a formato datetime
-    ax.plot(x, datos[columna], alpha=1, lw=2, color=color_linea, solid_capstyle='round', label=columna)
+    #ax.plot(x, mediana[columna], alpha=0.75, lw=1, color=color_linea, solid_capstyle='round')
+    ax.fill_between(x, limite_superior[columna], limite_inferior[columna], alpha=0.2, lw=0.75, color=color_linea, label=columna)
 
 # ejes y leyenda
 ax.set_xlabel('Mes')
@@ -80,7 +94,7 @@ ax.set_ylabel('Casos')
 plt.yscale('log')
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m'))  # formato de fecha
 plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # escala por meses
-legend = ax.legend(edgecolor='white')
+legend = ax.legend(edgecolor='white', loc='upper left')
 
 # guardar y mostrar gráfico
 ruta = carpeta_destino + imagen_destino
