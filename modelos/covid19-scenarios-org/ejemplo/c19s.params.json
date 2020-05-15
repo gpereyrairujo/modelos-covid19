@@ -43,10 +43,10 @@
   "scenarioData": {
     "data": {
       "epidemiological": {
-        "hospitalStayDays": 3,
+        "hospitalStayDays": 6,
         "icuStayDays": 14,
-        "infectiousPeriodDays": 7,
-        "latencyDays": 3,
+        "infectiousPeriodDays": 3,
+        "latencyDays": 5,
         "overflowSeverity": 2,
         "peakMonth": 0,
         "r0": {
@@ -56,22 +56,35 @@
         "seasonalForcing": 0
       },
       "mitigation": {
-        "mitigationIntervals": []
+        "mitigationIntervals": [
+          {
+            "color": "#bf52f7",
+            "name": "2",
+            "timeRange": {
+              "begin": "2020-11-08T15:00:00.000Z",
+              "end": "2020-12-08T15:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 20,
+              "end": 30
+            }
+          }
+        ]
       },
       "population": {
         "ageDistributionName": "Argentina",
         "caseCountsName": "None",
-        "hospitalBeds": 200,
-        "icuBeds": 20,
-        "importsPerDay": 1,
+        "hospitalBeds": 50,
+        "icuBeds": 5,
+        "importsPerDay": 0.2,
         "initialNumberOfCases": 1,
         "populationServed": 100000
       },
       "simulation": {
         "numberStochasticRuns": 15,
         "simulationTimeRange": {
-          "begin": "2020-06-01T15:00:00.000Z",
-          "end": "2020-08-31T15:00:00.000Z"
+          "begin": "2020-05-11T15:00:00.000Z",
+          "end": "2020-12-31T15:00:00.000Z"
         }
       }
     },
