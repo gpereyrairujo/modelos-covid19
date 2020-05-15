@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import matplotlib
 import datetime as dt
 import matplotlib.dates as mdates
