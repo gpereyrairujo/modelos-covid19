@@ -12,7 +12,7 @@ separador = ','
 codificacion = 'utf-16'
 # datos locales
 carpeta_origen = './'
-archivo_municipios = 'municipios-latitud-longitud.csv'
+archivo_municipios = 'municipios_latitud_longitud.csv'
 # dónde guardar los resultados
 carpeta_destino = carpeta_origen
 archivo_destino_datos_completos = 'datos_minsal_completos.csv'
