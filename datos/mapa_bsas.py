@@ -6,7 +6,7 @@ import numpy as np
 carpeta_origen = './'
 carpeta_destino = carpeta_origen
 archivo_datos_mapa = 'kml_municipios/municipios.shp'
-archivo_casos_municipios = 'datos_minsal_actuales_bsas.csv'
+archivo_casos_municipios = 'datos_minsal_acumulados_municipios_bsas.csv'
 archivo_destino_imagen = 'mapa_casos_region.png'
 
 # leer datos mapa base
