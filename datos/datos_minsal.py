@@ -61,26 +61,6 @@ print('Edad promedio fallecidos:', edad_promedio_fallecidos)
 print('Total confirmados (columna clasificacion_resumen):', total_confirmados_1)
 print('Total confirmados (columna clasificacion):', total_confirmados_2)
 print('Datos correspondientes al día',ultima_actualizacion)
-# seleccionar las columnas que se van a exportar
-columnas_origen = [
-    'id_evento_caso',
-    'residencia_provincia_nombre',
-    'residencia_departamento_nombre',
-    'clasificacion',
-    'edad_actual_anios',
-    'sexo',
-    'cuidado_intensivo',
-    'asistencia_respiratoria_mecanica',
-    'fallecido',
-    'fecha_inicio_sintomas',
-    'fecha_apertura',
-    'fecha_diagnostico',
-    'fecha_internacion',
-    'fecha_cui_intensivo',
-    'fecha_fallecimiento',
-    'ultima_actualizacion'
-]
-datos = datos[columnas_origen]
 
 
 # 3. guardar listado completo de casos confirmados (archivo mucho más chico que el original completo)
@@ -93,7 +73,9 @@ datos.to_csv(ruta, index=False)
 ruta = carpeta_origen + archivo_municipios
 datos_municipios = pd.read_csv(ruta)
 # filtrar base de datos y dejar sólo casos de Prov de Bs As
+# (tomar los casos con residencia y también carga en la prov de bs as)
 datos = datos.loc[datos['residencia_provincia_nombre']=='Buenos Aires']
+datos = datos.loc[datos['carga_provincia_nombre']=='Buenos Aires']
 # filtrar base de datos y dejar sólo casos de los municipios listados en el archivo de entrada
 datos = datos.loc[datos['residencia_departamento_nombre'].isin(datos_municipios['Municipio'])]
 # exportar los datos
