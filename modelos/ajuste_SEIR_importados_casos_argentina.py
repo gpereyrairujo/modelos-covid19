@@ -24,7 +24,7 @@ datos_iniciales = pd.read_csv(ruta)
 
 # ajuste de parámetros
 print('Ajuste de parámetros diarios en base a los datos de los '+str(duracion_periodo)+' días posteriores')
-resultado = ajuste_modelos(modelo_SEIR_importados, datos_iniciales, serie_estimados, serie_observados, serie_parametro, duracion_periodo)
+resultado = ajuste_modelos(modelo_SEIR_importados, datos_iniciales, serie_estimados, serie_observados, serie_parametro, duracion_periodo, maximo_iteraciones_sin_cambios=50)
 
 # graficar el ajuste obtenido
 columnas_grafico = [
