@@ -1,13 +1,10 @@
 import pandas as pd
-import random
-from sklearn.metrics import mean_squared_error
-from math import sqrt
 from modelo_SIR import modelo_SIR
-from ajuste_modelos import ajuste_por_periodos, ajuste_global
+from ajuste_modelos import ajuste_modelos
 from graficar_resultados import graficar_resultados
 
 # datos de entrada y salida
-carpeta_origen = './ajuste_SIR_casos_argentina/'
+carpeta_origen = './ajustes_casos_argentina/'
 archivo_origen = 'SIR_casos_argentina.csv'
 carpeta_destino = carpeta_origen
 archivo_destino = 'ajuste_SIR_casos_argentina.csv'
@@ -24,17 +21,9 @@ duracion_periodo = 7
 ruta = carpeta_origen + archivo_origen
 datos_iniciales = pd.read_csv(ruta)
 
-# ejecutar paso 1: ajuste preliminar por períodos
-print('Paso 1 - ajuste preliminar para cada período')
-variacion_aleatoria = 0.05
-ajuste_paso1 = ajuste_por_periodos(modelo_SIR, datos_iniciales, serie_estimados, serie_observados, serie_parametro, duracion_periodo, variacion_aleatoria)
-
-# ejecutar paso 2: optimización de parámetros simultáneamente para todos los períodos
-print('Paso 2 - ajuste global para todos los períodos')
-variacion_aleatoria = 0.005
-ajuste_paso2 = ajuste_global(modelo_SIR, ajuste_paso1, serie_estimados, serie_observados, serie_parametro, duracion_periodo, variacion_aleatoria)
-
-resultado = ajuste_paso2
+# ajuste de parámetros
+print('Ajuste de parámetros diarios en base a los datos de los '+str(duracion_periodo)+' días posteriores')
+resultado = ajuste_modelos(modelo_SIR, datos_iniciales, serie_estimados, serie_observados, serie_parametro, duracion_periodo)
 
 # graficar el mejor ajuste obtenido
 columnas_grafico = [
