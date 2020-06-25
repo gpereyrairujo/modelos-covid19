@@ -31,12 +31,16 @@ datos_mapa['log_total'] = np.log10(datos_mapa['total'])
 ultima_actualizacion = datos_mapa.ix[1, 'ultima_actualizacion']
 
 
-# mapa provincia
+# mapas
 
-# dibujar mapa
 # paleta de colores
-paleta_colores = plt.cm.get_cmap('YlOrBr')
+paleta_colores = plt.cm.get_cmap('Blues')
 paleta_colores.set_under('white')                   # valores por debajo del mínimo en color blanco
+color_fondo = 'white'
+color_bordes = 'darkred'
+
+
+# mapa provincia
 # figura, tamaño, ejes
 fig, ax = plt.subplots(1, figsize=(4.3, 5))       # crear figura y asignar tamaño
 plt.axis('equal')                               # mantener proporción latitud y longitud
@@ -44,12 +48,12 @@ ax.set_axis_off()                               # quitar ejes
 plt.gca().xaxis.set_major_locator(plt.NullLocator())
 plt.gca().yaxis.set_major_locator(plt.NullLocator())
 plt.margins(0.05,0.05)                          # margen alrededor del mapa
-fig.patch.set_facecolor('lightgrey')               # color del fondo
+fig.patch.set_facecolor(color_fondo)               # color del fondo
 # datos para el mapa
 ax = datos_mapa.plot(
     column='log_total',                         # valores a usar para la escala de colores
     cmap=paleta_colores, vmin=0, vmax=3,        # escala de colores entre valores log 0 y 3 (entre 1 y 1000)
-    edgecolor='lightgrey', linewidth=0.1,          # color de los bordes
+    edgecolor=color_bordes, linewidth=0.1,          # color de los bordes
     ax=ax
     )
 # leyendas
@@ -60,14 +64,14 @@ plt.text(izquierda, abajo, 'Elaborado en base a datos del Ministerio de Salud de
 # leyenda rangos de colores 
 for i in range(4):
     valor = 10**i
-    color_fondo = paleta_colores(i/3)
+    color = paleta_colores(i/3)
     posicion_y = abajo - (4-i) * (abajo-arriba)/20
     posicion_x = derecha - (derecha-izquierda)/30
     plt.text(
         posicion_x, posicion_y,
         str(valor),
         {'color':'black', 'fontsize':7, 'ha':'right', 'va':'center'},
-        bbox=dict(boxstyle="round", facecolor=color_fondo, edgecolor='lightgrey')
+        bbox=dict(boxstyle="round", facecolor=color, edgecolor=color_bordes, linewidth=0.1)
     )
 # guardar y mostrar mapa
 ruta_imagen = carpeta_destino + 'mapa_casos_provincia.png'
@@ -80,9 +84,6 @@ plt.savefig(ruta_imagen, facecolor=fig.get_facecolor(), bbox_inches = 'tight', p
 datos_mapa = datos_mapa.loc[(datos_mapa['Latitud']<-35.7) & (datos_mapa['Longitud']>-60.8)]
 
 # dibujar mapa
-# paleta de colores
-paleta_colores = plt.cm.get_cmap('YlOrBr')
-paleta_colores.set_under('white')                   # valores por debajo del mínimo en color blanco
 # figura, tamaño, ejes
 fig, ax = plt.subplots(1, figsize=(7, 5))       # crear figura y asignar tamaño
 plt.axis('equal')                               # mantener proporción latitud y longitud
@@ -90,12 +91,12 @@ ax.set_axis_off()                               # quitar ejes
 plt.gca().xaxis.set_major_locator(plt.NullLocator())
 plt.gca().yaxis.set_major_locator(plt.NullLocator())
 plt.margins(0.05,0.05)                          # margen alrededor del mapa
-fig.patch.set_facecolor('lightgrey')               # color del fondo
+fig.patch.set_facecolor(color_fondo)               # color del fondo
 # datos para el mapa
 ax = datos_mapa.plot(
     column='log_total',                         # valores a usar para la escala de colores
     cmap=paleta_colores, vmin=0, vmax=3,        # escala de colores entre valores log 0 y 3 (entre 1 y 1000)
-    edgecolor='lightgrey', linewidth=0.5,          # color de los bordes
+    edgecolor=color_bordes, linewidth=0.1,          # color de los bordes
     ax=ax
     )
 # rótulos para cada municipio
@@ -105,7 +106,7 @@ for idx, fila in datos_mapa.iterrows():
             fila['Longitud'], fila['Latitud'],                                                      # ubicación
             fila['Municipio']+'\n'+str(int(fila['total'])),                                         # texto
             {'color':'black', 'fontsize':7, 'ha':'center', 'va':'center'},     # formato
-            bbox=dict(boxstyle="round", facecolor='lightgrey', edgecolor='white', alpha=0.5)           # cuadro de texto
+            bbox=dict(boxstyle="round", facecolor='lightgrey', edgecolor='white', alpha=0.5, linewidth=0.1)           # cuadro de texto
         )
 # leyendas
 izquierda, derecha = plt.xlim()     # límites del mapa en x
@@ -115,14 +116,14 @@ plt.text(izquierda, abajo, 'Elaborado en base a datos del Ministerio de Salud de
 # leyenda rangos de colores 
 for i in range(4):
     valor = 10**i
-    color_fondo = paleta_colores(i/3)
+    color = paleta_colores(i/3)
     posicion_y = abajo - (4-i) * (abajo-arriba)/20
     posicion_x = derecha - (derecha-izquierda)/30
     plt.text(
         posicion_x, posicion_y,
         str(valor),
         {'color':'black', 'fontsize':7, 'ha':'right', 'va':'center'},
-        bbox=dict(boxstyle="round", facecolor=color_fondo, edgecolor='lightgrey')
+        bbox=dict(boxstyle="round", facecolor=color, edgecolor=color_bordes, linewidth=0.1)
     )
 # guardar y mostrar mapa
 ruta_imagen = carpeta_destino + archivo_destino_imagen
