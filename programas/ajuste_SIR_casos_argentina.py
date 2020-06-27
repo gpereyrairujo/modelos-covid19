@@ -1,0 +1,56 @@
+import pandas as pd
+from modelo_SIR import modelo_SIR
+from ajuste_modelos import ajuste_modelos
+from graficar_resultados import graficar_resultados
+
+# datos de entrada y salida
+carpeta_origen = './ajustes_casos_argentina/'
+archivo_origen = 'SIR_casos_argentina.csv'
+carpeta_destino = carpeta_origen
+archivo_destino = 'ajuste_SIR_casos_argentina.csv'
+imagen_destino_casos = 'ajuste_SIR_casos_argentina.png'
+imagen_destino_R0 = 'ajuste_SIR_casos_argentina_R0.png'
+
+# parámetros generales para el ajuste
+serie_estimados = 'Ia'
+serie_observados = 'Confirmados'
+serie_parametro = 'R0'
+duracion_periodo = 7
+
+# leer datos iniciales
+ruta = carpeta_origen + archivo_origen
+datos_iniciales = pd.read_csv(ruta)
+
+# ajuste de parámetros
+print('Ajuste de parámetros diarios en base a los datos de los '+str(duracion_periodo)+' días posteriores')
+resultado = ajuste_modelos(modelo_SIR, datos_iniciales, serie_estimados, serie_observados, serie_parametro, duracion_periodo)
+
+# graficar el mejor ajuste obtenido
+columnas_grafico = [
+    'Ia',
+    'I',
+    'R',
+    'Confirmados']
+colores_grafico = [
+    [0.26,0.46,0.81],  # azul
+    [0.90,0.80,0.10],  # amarillo
+    'darkgreen',  # verde
+    [0.26,0.46,0.81]]  # azul
+estilos_grafico = [
+    '-',
+    '-',
+    '-',
+    '.']
+ruta = carpeta_destino + imagen_destino_casos
+graficar_resultados(resultado, 'Fecha', columnas_grafico, colores_grafico, estilos_grafico, ruta, log=False)
+
+# graficar el mejor R0 obtenido
+columnas_grafico = ['R0']
+colores_grafico = [[0.26,0.46,0.81]]  # azul
+estilos_grafico = ['-']
+ruta = carpeta_destino + imagen_destino_R0
+graficar_resultados(resultado, 'Fecha', columnas_grafico, colores_grafico, estilos_grafico, ruta, log=False)
+
+# guardar el mejor ajuste en csv
+ruta = carpeta_destino + archivo_destino
+resultado.to_csv(ruta, index = False)
