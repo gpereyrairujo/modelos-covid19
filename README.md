@@ -16,7 +16,6 @@ Algunos resultados obtenidos con estos modelos en https://gpereyrairujo.github.i
 
 ![](ajustes_casos_argentina/graficos/ajuste_SEIR_importados_casos_argentina.png?raw=true)
 ![](ajustes_casos_argentina/graficos/ajuste_SEIR_importados_casos_argentina_log.png?raw=true)
-![](ajustes_casos_argentina/graficos/ajuste_SEIR_importados_casos_argentina_R0.png?raw=true)
 
 ---
 
@@ -26,3 +25,5 @@ _General Pueyrredón_
 
 ![](https://raw.githubusercontent.com/gpereyrairujo/datos-covid19/main/graficos/proyeccion_05_08.png)
 ![](https://raw.githubusercontent.com/gpereyrairujo/datos-covid19/main/graficos/proyeccion_25_08.png)
+![](https://raw.githubusercontent.com/gpereyrairujo/datos-covid19/main/graficos/resultado_proyeccion_04_09.png)
+![](https://raw.githubusercontent.com/gpereyrairujo/datos-covid19/main/graficos/resultado_proyeccion_01_10.png)
