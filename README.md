@@ -1,6 +1,6 @@
 ### Modelos epidemiológicos discretos (de paso diario) para evaluación de escenarios y proyecciones de casos
 
-### Aplicación de la proyección de casos para municipios de la Región Sanitaria VII de la Provincia de Buenos Aires
+### Aplicación de la proyección de casos para municipios de la Región Sanitaria VIII de la Provincia de Buenos Aires
 
 Códigos generales de los modelos en la carpeta `programas`
 
